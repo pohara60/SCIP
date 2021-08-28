@@ -68,3 +68,27 @@
  (encode-1 symbol tree))
 (encode-symbol 'B sample-tree)
 (decode (encode '(A B C D) sample-tree) sample-tree)
+
+(define (generate-huffman-tree pairs) 
+  (successive-merge (make-leaf-set pairs)))
+  
+(define (successive-merge leaf-set)
+  (cond ((eq? (length leaf-set) 0) '())
+        ((eq? (length leaf-set) 1) leaf-set)
+        (else (successive-merge (cons (make-code-tree (car leaf-set) (cadr leaf-set)) (cddr leaf-set))))))
+
+(make-leaf-set (list '(A 4) '(B 2) '(C 1) '(D 1)))
+(generate-huffman-tree (list '(A 4) '(B 2) '(C 1) '(D 1)))
+(encode 
+  '(GET)
+  (generate-huffman-tree (list 
+  '(A 2) '(GET 2) '(SHA 3) '(WAH 1) '(BOOM 1) '(JOB 2) '(NA 16) '(YIP 9))))
+(define tree
+  (generate-huffman-tree (list 
+  '(a 2) '(Get 2) '(Sha 3) '(Wah 1) '(boom 1) '(job 2) '(na 16) '(yip 9))))
+(decode   
+  (encode 
+    '(Get a job Sha na na na na na na na na Get a job Sha na na na na na na na na Wah yip yip yip yip yip yip yip yip yip Sha boom)
+    tree)
+  tree)
+  
