@@ -1,3 +1,20 @@
+#lang r5rs
+;;; create binding for error (for R5RS)
+(define error #f)
+;;; capture toplevel continuation
+;;;  assign a function to error, allowing a variable number of arguments to
+;;;  be passed
+(call-with-current-continuation (lambda (k)
+                                  (set! error
+                                        (lambda error-arguments
+                                          (display ">>>> ERROR ")
+                                          (newline)
+                                          (k error-arguments)))
+                                  'done)) 
+(define false #f)
+
+
+
 (define (make-leaf symbol weight) 
  (list 'leaf symbol weight)) 
 (define (leaf? object) 
