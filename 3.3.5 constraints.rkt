@@ -1,19 +1,4 @@
-#lang r5rs
-
-;;; create binding for error (for R5RS)
-(define error #f)
-;;; capture toplevel continuation
-;;;  assign a function to error, allowing a variable number of arguments to
-;;;  be passed
-(call-with-current-continuation (lambda (k)
-                                  (set! error
-                                        (lambda error-arguments
-                                          (display ">>>> ERROR ")
-                                          (newline)
-                                          (k error-arguments)))
-                                  'done)) 
-(define false #f)
-(define true #t)
+#lang sicp
 
 ;; Constraints
 
@@ -182,7 +167,7 @@
 (probe "Fahrenheit temp" F)
 (celsius-fahrenheit-converter C F)
 (set-value! C 25 'user)
-(set-value! F 212 'user)
+;(set-value! F 212 'user)
 (forget-value! C 'user)
 (set-value! F 212 'user)
 

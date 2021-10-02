@@ -1,21 +1,6 @@
-#lang r5rs
+#lang sicp
 
-;;; create binding for error (for R5RS)
-(define error #f)
-;;; capture toplevel continuation
-;;;  assign a function to error, allowing a variable number of arguments to
-;;;  be passed
-(call-with-current-continuation (lambda (k)
-                                  (set! error
-                                        (lambda error-arguments
-                                          (display ">>>> ERROR ")
-                                          (newline)
-                                          (k error-arguments)))
-                                  'done)) 
-(define false #f)
-(define true #t)
-
-;; Speacial form to construct stream using delay
+;; Special form to construct stream using delay
 (define-syntax cons-stream
   (syntax-rules ()
     ((_ a b)
