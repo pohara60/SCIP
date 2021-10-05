@@ -46,7 +46,6 @@
 ;; Tagged data
 (define (attach-tag type-tag contents)
   (cons type-tag contents))
-237
 (define (type-tag datum)
   (if (pair? datum)
       (car datum)
